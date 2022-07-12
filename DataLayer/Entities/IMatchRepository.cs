@@ -2,10 +2,10 @@
 {
     public interface IMatchRepository
     {
-        List<Match> GetMatches(int playerId);
+        List<Match> GetMatches(long playerId);
         List<Match> AddMatches(List<Match> matches);
-        Match GetMatch(int id);
+        Match GetMatch(long id);
         Match AddMatch(Match newMatch);
-        bool HasInitialized(int playerId);
+        bool HasInitialized(long playerId);
     }
 }

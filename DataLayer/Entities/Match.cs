@@ -11,7 +11,6 @@ namespace Dota2replaysaver.Models
         public long GameId { get; set; }
         [JsonPropertyName("start_time")]
         public long Date { get; set; }
-
         public long PlayerID { get; set; }
     }
 }

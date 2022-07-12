@@ -25,7 +25,7 @@ namespace DataLayer
             return matches;
         }
 
-        public Match GetMatch(int id)
+        public Match GetMatch(long id)
         {
             return _db.Matches.Find(id);
         }
@@ -35,12 +35,12 @@ namespace DataLayer
             return _db.Matches.ToList();
         }
 
-        public List<Match> GetMatches(int playerId)
+        public List<Match> GetMatches(long playerId)
         {
-            throw new NotImplementedException();
+            return _db.Matches.ToList().Where(p => p.PlayerID == playerId).ToList();
         }
 
-        public bool HasInitialized(int playerId)
+        public bool HasInitialized(long playerId)
         {
             bool doesExist = _db.Matches.Any(p => p.PlayerID == playerId);
             return doesExist;

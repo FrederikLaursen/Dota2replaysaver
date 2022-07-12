@@ -19,7 +19,7 @@ namespace Dota2replaysaver.Controllers
         //[HttpGet("{id}")]
         public async Task<IActionResult> InitialReplaySave()
         {
-            return Ok(_data.GetMatches(123));
+            return Ok(_data.GetMatches(387424));
         }
 }
 }

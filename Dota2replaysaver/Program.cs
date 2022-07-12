@@ -1,4 +1,5 @@
 using BusinessLogic;
+using BusinessLogic.Services;
 using DataLayer;
 using DataLayer.Repositories;
 using Dota2replaysaver.Models.Interfaces;
@@ -19,6 +20,11 @@ builder.Services.AddDbContext<MatchDbContext>(opt => opt.UseSqlServer(builder.Co
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddTransient<IMatchLogic, MatchLogic>();
 
+
+builder.Services.AddScoped<IHttpClientService, HttpClientService>();
+
+
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
