@@ -13,7 +13,7 @@ namespace Dota2replaysaver.Controllers
        // public MatchController(IMatch data)
         public MatchController(IMatch data)
         {
-            _ML = new BusinessLogic.MatchLogic();
+            _ML = new BusinessLogic.MatchLogic(data);
             //_data = data;
         }
 

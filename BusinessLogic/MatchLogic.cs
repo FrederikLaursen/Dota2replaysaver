@@ -6,13 +6,13 @@ namespace BusinessLogic
 {
     public class MatchLogic : IMatchLogic
     {
-        private DataLayer.MatchRepository _data;
-        //private readonly IMatch _data;
+        //private DataLayer.MatchRepository _data;
+        private readonly IMatch _data;
 
         public MatchLogic(IMatch data)
         {
-            _data = new DataLayer.MatchRepository();
-            //_data = data;
+            //_data = new DataLayer.MatchRepository();
+            _data = data;
         }
         public Match AddMatch(Match newMatch)
         {
@@ -64,7 +64,7 @@ namespace BusinessLogic
                         {
                             matchList[i].PlayerID = userID;
                         }
-                        _data.AddMatch(matchList[0]);
+                        _data.AddMatches(matchList);
                     }
                     else
                     {

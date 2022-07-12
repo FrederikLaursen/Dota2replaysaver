@@ -18,12 +18,12 @@ namespace DataLayer
             _db.SaveChanges();
             return newMatch;
         }
-        //public List<Match> AddMatches(List<Match> matches)
-        //{
-        //    _db.Matches.Add(matches);
-        //    _db.SaveChanges();
-        //    return newMatch;
-        //}
+        public List<Match> AddMatches(List<Match> matches)
+        {
+            _db.Matches.AddRange(matches);
+            _db.SaveChanges();
+            return matches;
+        }
 
         public Match GetMatch(int id)
         {
