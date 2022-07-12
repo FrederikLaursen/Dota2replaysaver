@@ -1,4 +1,5 @@
-﻿using Dota2replaysaver.Models.Interfaces;
+﻿using BusinessLogic;
+using Dota2replaysaver.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -9,7 +10,7 @@ namespace Dota2replaysaver.Controllers
     public class MatchController : Controller
     {
         private BusinessLogic.MatchLogic _ML;
-        public MatchController(IMatch data)
+        public MatchController(IMatchLogic data)
         {
             _ML = new BusinessLogic.MatchLogic(data);
         }

@@ -6,22 +6,20 @@ namespace BusinessLogic
 {
     public class MatchLogic : IMatchLogic
     {
-        private readonly IMatch _data;
+        //private readonly IMatch _data;
 
-        public MatchLogic(IMatch data)
+        //public MatchLogic(IMatch data)
+        //{
+        //    _data = data;
+        //}
+
+        private readonly IMatchLogic _data;
+
+        public MatchLogic(IMatchLogic data)
         {
             _data = data;
         }
-        public Match AddMatch(Match newMatch)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Match GetMatch(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+        
 
         public List<Match> GetMatches(int playerId)
         {
@@ -38,11 +36,6 @@ namespace BusinessLogic
                 matchList = UpdateMatches(playerId).ConfigureAwait(false).GetAwaiter().GetResult();
                 return matchList;
             }
-        }
-
-        public bool HasInitialized(int playerId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<List<Match>> UpdateMatches(int playerId)
