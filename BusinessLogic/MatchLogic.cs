@@ -6,16 +6,8 @@ namespace BusinessLogic
 {
     public class MatchLogic : IMatchLogic
     {
-        //private readonly IMatch _data;
-
-        //public MatchLogic(IMatch data)
-        //{
-        //    _data = data;
-        //}
-
-        private readonly IMatchLogic _data;
-
-        public MatchLogic(IMatchLogic data)
+        private readonly IMatchRepository _data;
+        public MatchLogic(IMatchRepository data)
         {
             _data = data;
         }

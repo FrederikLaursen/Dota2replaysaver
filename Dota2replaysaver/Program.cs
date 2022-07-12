@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 //Custom stuff
 
 builder.Services.AddDbContext<MatchDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DotaReplaySaverDB")));
-builder.Services.AddScoped<IMatch, MatchRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddTransient<IMatchLogic, MatchLogic>();
 
 var app = builder.Build();

@@ -9,17 +9,17 @@ namespace Dota2replaysaver.Controllers
     [Route("matches")]
     public class MatchController : Controller
     {
-        private BusinessLogic.MatchLogic _ML;
+        private readonly IMatchLogic _data;
         public MatchController(IMatchLogic data)
         {
-            _ML = new BusinessLogic.MatchLogic(data);
+            _data = data;
         }
 
         [HttpGet(Name = "GetMatchesInit")]
         //[HttpGet("{id}")]
         public async Task<IActionResult> InitialReplaySave()
         {
-            return Ok(_ML.GetMatches(123));
+            return Ok(_data.GetMatches(123));
         }
 }
 }

@@ -4,7 +4,7 @@ using Dota2replaysaver.Models.Interfaces;
 
 namespace DataLayer
 {
-    public class MatchRepository : IMatch
+    public class MatchRepository : IMatchRepository
     {
         private readonly MatchDbContext _db;
 

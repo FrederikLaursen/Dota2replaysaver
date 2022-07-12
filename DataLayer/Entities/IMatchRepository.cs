@@ -1,6 +1,6 @@
 ﻿namespace Dota2replaysaver.Models.Interfaces
 {
-    public interface IMatch
+    public interface IMatchRepository
     {
         List<Match> GetMatches(int playerId);
         List<Match> AddMatches(List<Match> matches);
