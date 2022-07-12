@@ -6,12 +6,10 @@ namespace BusinessLogic
 {
     public class MatchLogic : IMatchLogic
     {
-        //private DataLayer.MatchRepository _data;
         private readonly IMatch _data;
 
         public MatchLogic(IMatch data)
         {
-            //_data = new DataLayer.MatchRepository();
             _data = data;
         }
         public Match AddMatch(Match newMatch)
@@ -53,6 +51,7 @@ namespace BusinessLogic
             List<Match> matchList = new List<Match>();
             using (var httpClient = new HttpClient())
             {
+                //Use httpclient interface instead
                 using (var response = await httpClient.GetAsync("https://api.opendota.com/api/players/" + userID + "/matches"))
                 {
                     if (response.IsSuccessStatusCode)

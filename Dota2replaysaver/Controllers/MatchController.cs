@@ -8,13 +8,10 @@ namespace Dota2replaysaver.Controllers
     [Route("matches")]
     public class MatchController : Controller
     {
-       // private readonly IMatch _data;
         private BusinessLogic.MatchLogic _ML;
-       // public MatchController(IMatch data)
         public MatchController(IMatch data)
         {
             _ML = new BusinessLogic.MatchLogic(data);
-            //_data = data;
         }
 
         [HttpGet(Name = "GetMatchesInit")]
