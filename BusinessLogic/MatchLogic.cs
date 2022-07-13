@@ -65,14 +65,13 @@ namespace BusinessLogic
             {
                 _data.AddMatches(newMatches);
             }
-
             return true;
         }
 
         public List<Match> FindNew(List<Match> currentMatches, List<Match> newMatches)
         {
             List<Match> matchesToBeSaved = new List<Match>();
-            matchesToBeSaved = currentMatches.Concat(newMatches).GroupBy(x => x.GameId).Where(x => x.Count() == 1).Select(x => x.FirstOrDefault()).ToList();
+            matchesToBeSaved = newMatches.ExceptBy(currentMatches.Select(x => x.GameId), x => x.GameId).ToList();
             return matchesToBeSaved;
         }
     }
