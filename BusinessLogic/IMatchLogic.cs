@@ -1,10 +1,11 @@
-﻿using Dota2replaysaver.Models;
+﻿using DataLayer.DTOs;
+using Dota2replaysaver.Models;
 
 namespace BusinessLogic
 {
     public interface IMatchLogic
     {
-        List<Match> GetMatches(int playerId);
+        List<MatchDTO> GetMatches(int playerId);
         Task<List<Match>> UpdateMatches(int playerId);
     }
 }

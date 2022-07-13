@@ -13,4 +13,6 @@ namespace Dota2replaysaver.Models
         public long Date { get; set; }
         public long PlayerID { get; set; }
     }
+
+
 }
