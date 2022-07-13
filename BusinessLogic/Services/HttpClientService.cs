@@ -37,25 +37,3 @@ namespace BusinessLogic.Services
         }
     }
 }
-
-//using (var httpClient = new HttpClient())
-//{
-//    //Use httpclient interface instead
-//    using (var response = await httpClient.GetAsync("https://api.opendota.com/api/players/" + userID + "/matches"))
-//    {
-//        if (response.IsSuccessStatusCode)
-//        {
-//            string apiResponse = await response.Content.ReadAsStringAsync();
-//            matchList = JsonSerializer.Deserialize<List<Match>>(apiResponse);
-
-//            for (int i = 0; i < matchList.Count; i++)
-//            {
-//                matchList[i].PlayerID = userID;
-//            }
-//            _data.AddMatches(matchList);
-//        }
-//        else
-//        {
-//            return matchList;
-//        }
-//    }

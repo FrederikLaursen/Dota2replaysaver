@@ -9,9 +9,10 @@ namespace BusinessLogic
     {
         private readonly IMatchRepository _data;
         private readonly IHttpClientFactory _httpClientFactory;
-        public MatchLogic(IMatchRepository data)
+        public MatchLogic(IMatchRepository data, IHttpClientFactory httpClientFactory)
         {
             _data = data;
+            _httpClientFactory = httpClientFactory;
         }
         
         public List<Match> GetMatches(int playerId)
@@ -35,30 +36,10 @@ namespace BusinessLogic
         {
             int userID = 387424;
             List<Match> matchList = new List<Match>();
-            //using (var httpClient = new HttpClient())
-            //{
-            //    //Use httpclient interface instead
-            //    using (var response = await httpClient.GetAsync("https://api.opendota.com/api/players/" + userID + "/matches"))
-            //    {
-            //        if (response.IsSuccessStatusCode)
-            //        {
-            //            string apiResponse = await response.Content.ReadAsStringAsync();
-            //            matchList = JsonSerializer.Deserialize<List<Match>>(apiResponse);
-
-            //            for (int i = 0; i < matchList.Count; i++)
-            //            {
-            //                matchList[i].PlayerID = userID;
-            //            }
-            //            _data.AddMatches(matchList);
-            //        }
-            //        else
-            //        {
-            //            return matchList;
-            //        }
-            //    }
-            //}
             var http = new HttpClientService(_httpClientFactory);
-            string result = await http.Get("https://api.opendota.com/api/players/" + userID + "/matches");
+            string rawResult = await http.Get("https://api.opendota.com/api/players/" + userID + "/matches");
+
+            //Create JSON Handler
             return matchList;
         }
     }

@@ -37,7 +37,7 @@ namespace DataLayer
 
         public List<Match> GetMatches(long playerId)
         {
-            return _db.Matches.ToList().Where(p => p.PlayerID == playerId).ToList();
+            return _db.Matches.Where(p => p.PlayerID == playerId).ToList();
         }
 
         public bool HasInitialized(long playerId)

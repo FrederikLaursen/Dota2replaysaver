@@ -20,7 +20,6 @@ builder.Services.AddDbContext<MatchDbContext>(opt => opt.UseSqlServer(builder.Co
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddTransient<IMatchLogic, MatchLogic>();
 
-
 builder.Services.AddScoped<IHttpClientService, HttpClientService>();
 
 
