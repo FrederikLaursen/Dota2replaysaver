@@ -15,55 +15,65 @@ namespace BusinessLogic
             _data = data;
             _httpClientFactory = httpClientFactory;
         }
-        
+
         public List<MatchDTO> GetMatches(int playerId)
         {
             List<MatchDTO> matchList = new List<MatchDTO>();
-            //CLEANUP required
-            if (_data.HasInitialized(playerId))
+            var isSuccessfullUpdate = (UpdateMatches(playerId).ConfigureAwait(false).GetAwaiter().GetResult());
+            if (isSuccessfullUpdate)
             {
-                //try??
                 matchList = _data.GetMatches(playerId).Select(match => new MatchDTO
                 {
                     GameId = match.GameId,
                     PlayerID = match.PlayerID,
                     Date = DateTimeOffset.FromUnixTimeSeconds(match.Date)
                 }).ToList();
-                
+
                 return matchList;
             }
             else
             {
-                //Incase of null dosomething
-                matchList = UpdateMatches(playerId).ConfigureAwait(false).GetAwaiter().GetResult().Select(match => new MatchDTO
-                {
-                    GameId = match.GameId,
-                    PlayerID = match.PlayerID,
-                    Date = DateTimeOffset.FromUnixTimeSeconds(match.Date)
-                }).ToList();
-
+                //Somekind of error handling?
                 return matchList;
             }
         }
 
-        public async Task<List<Match>> UpdateMatches(int playerId)
+        public async Task<bool> UpdateMatches(int playerId)
         {
-            List<Match> matchList = new List<Match>();
+            List<Match> newMatches = new List<Match>();
+            List<Match> currentMatches = new List<Match>();
+
+            //Get current matches
+            currentMatches = _data.GetMatches(playerId);
+
+            //Get new matches
             var http = new HttpClientService(_httpClientFactory);
             string rawResult = await http.Get("https://api.opendota.com/api/players/" + playerId + "/matches");
 
             //try catch? Move to own class?
             if (rawResult != null)
             {
-                matchList = JsonSerializer.Deserialize<List<Match>>(rawResult);
-                for (int i = 0; i < matchList.Count; i++)
+                newMatches = JsonSerializer.Deserialize<List<Match>>(rawResult);
+                for (int i = 0; i < newMatches.Count; i++)
                 {
-                    matchList[i].PlayerID = playerId;
+                    newMatches[i].PlayerID = playerId;
                 }
             }
-            
-            _data.AddMatches(matchList);
-            return matchList;
+
+            newMatches = FindNew(currentMatches, newMatches);
+            if (newMatches.Count > 0)
+            {
+                _data.AddMatches(newMatches);
+            }
+
+            return true;
+        }
+
+        public List<Match> FindNew(List<Match> currentMatches, List<Match> newMatches)
+        {
+            List<Match> matchesToBeSaved = new List<Match>();
+            matchesToBeSaved = currentMatches.Concat(newMatches).GroupBy(x => x.GameId).Where(x => x.Count() == 1).Select(x => x.FirstOrDefault()).ToList();
+            return matchesToBeSaved;
         }
     }
 }

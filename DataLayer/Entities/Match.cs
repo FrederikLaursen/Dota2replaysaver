@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Dota2replaysaver.Models
 {
-    public class Match
+    public class Match : IEquatable<Match>
     {
         [Key]
         public long Id { get; set; }
@@ -12,6 +12,11 @@ namespace Dota2replaysaver.Models
         [JsonPropertyName("start_time")]
         public long Date { get; set; }
         public long PlayerID { get; set; }
+
+        public bool Equals(Match match)
+        {
+            return GameId.Equals(match.GameId);
+        }
     }
 
 
