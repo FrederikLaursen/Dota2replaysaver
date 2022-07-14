@@ -6,6 +6,5 @@ namespace BusinessLogic
     public interface IMatchLogic
     {
         Task<List<MatchDTO>> GetMatches(int playerId);
-        Task UpdateMatches(int playerId);
     }
 }

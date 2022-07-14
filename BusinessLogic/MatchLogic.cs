@@ -19,7 +19,6 @@ namespace BusinessLogic
         public async Task<List<MatchDTO>> GetMatches(int playerId)
         {
             List<MatchDTO> matchList = new List<MatchDTO>();
-            //UpdateMatches(playerId).ConfigureAwait(false).GetAwaiter().GetResult();
             await UpdateMatches(playerId);
 
             matchList = _data.GetMatches(playerId).Select(match => new MatchDTO
@@ -32,7 +31,7 @@ namespace BusinessLogic
             return matchList;
         }
 
-        public async Task UpdateMatches(int playerId)
+        private async Task UpdateMatches(int playerId)
         {
             List<Match> newMatches = new List<Match>();
             List<Match> currentMatches = new List<Match>();
