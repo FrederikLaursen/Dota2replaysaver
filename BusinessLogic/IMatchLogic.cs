@@ -7,7 +7,5 @@ namespace BusinessLogic
     {
         Task<List<MatchDTO>> GetMatches(int playerId);
         Task UpdateMatches(int playerId);
-        List<Match> FindNew(List<Match> currentMatches, List<Match> newMatches);
-
     }
 }
