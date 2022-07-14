@@ -5,7 +5,9 @@ namespace BusinessLogic
 {
     public interface IMatchLogic
     {
-        List<MatchDTO> GetMatches(int playerId);
-        Task<bool> UpdateMatches(int playerId);
+        Task<List<MatchDTO>> GetMatches(int playerId);
+        Task UpdateMatches(int playerId);
+        List<Match> FindNew(List<Match> currentMatches, List<Match> newMatches);
+
     }
 }

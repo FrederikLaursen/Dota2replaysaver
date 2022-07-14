@@ -16,29 +16,23 @@ namespace BusinessLogic
             _httpClientFactory = httpClientFactory;
         }
 
-        public List<MatchDTO> GetMatches(int playerId)
+        public async Task<List<MatchDTO>> GetMatches(int playerId)
         {
             List<MatchDTO> matchList = new List<MatchDTO>();
-            var isSuccessfullUpdate = (UpdateMatches(playerId).ConfigureAwait(false).GetAwaiter().GetResult());
-            if (isSuccessfullUpdate)
-            {
-                matchList = _data.GetMatches(playerId).Select(match => new MatchDTO
-                {
-                    GameId = match.GameId,
-                    PlayerID = match.PlayerID,
-                    Date = DateTimeOffset.FromUnixTimeSeconds(match.Date)
-                }).ToList();
+            //UpdateMatches(playerId).ConfigureAwait(false).GetAwaiter().GetResult();
+            await UpdateMatches(playerId);
 
-                return matchList;
-            }
-            else
+            matchList = _data.GetMatches(playerId).Select(match => new MatchDTO
             {
-                //Somekind of error handling?
-                return matchList;
-            }
+                GameId = match.GameId,
+                PlayerID = match.PlayerID,
+                Date = DateTimeOffset.FromUnixTimeSeconds(match.Date)
+            }).ToList();
+
+            return matchList;
         }
 
-        public async Task<bool> UpdateMatches(int playerId)
+        public async Task UpdateMatches(int playerId)
         {
             List<Match> newMatches = new List<Match>();
             List<Match> currentMatches = new List<Match>();
@@ -65,14 +59,18 @@ namespace BusinessLogic
             {
                 _data.AddMatches(newMatches);
             }
-            return true;
         }
 
-        public List<Match> FindNew(List<Match> currentMatches, List<Match> newMatches)
+        private List<Match> FindNew(List<Match> currentMatches, List<Match> newMatches)
         {
             List<Match> matchesToBeSaved = new List<Match>();
             matchesToBeSaved = newMatches.ExceptBy(currentMatches.Select(x => x.GameId), x => x.GameId).ToList();
             return matchesToBeSaved;
+        }
+
+        private List<Match> GetReplay(List<Match> matches)
+        {
+            return null;
         }
     }
 }
