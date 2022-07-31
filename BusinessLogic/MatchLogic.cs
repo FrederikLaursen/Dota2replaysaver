@@ -40,13 +40,16 @@ namespace BusinessLogic
             currentMatches = _data.GetMatches(playerId);
 
             //Get new matches
-            var http = new HttpClientService(_httpClientFactory);
-            string rawResult = await http.Get("https://api.opendota.com/api/players/" + playerId + "/matches");
+            var http = _httpClientFactory.CreateClient();
+            var httpResponseMessage = await http.GetAsync("https://api.opendota.com/api/players/" + playerId + "/matches");
 
             //try catch? Move to own class?
-            if (rawResult != null)
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                newMatches = JsonSerializer.Deserialize<List<Match>>(rawResult);
+                using var contentStream =
+                await httpResponseMessage.Content.ReadAsStreamAsync();
+
+                newMatches = JsonSerializer.Deserialize<List<Match>>(contentStream);
                 for (int i = 0; i < newMatches.Count; i++)
                 {
                     newMatches[i].PlayerID = playerId;
